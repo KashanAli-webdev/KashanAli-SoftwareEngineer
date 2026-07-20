@@ -1,0 +1,383 @@
+/* ============================================================================
+   THEME
+   VS Code "Monokai" palette, exposed as custom properties.
+   Change values here to re-theme the whole CV from one place.
+   ============================================================================ */
+:root {
+  --monokai-bg:        #272822; /* editor background   */
+  --monokai-bg-alt:    #2f3129; /* slightly lighter bg, used for entry cards */
+  --monokai-fg:        #f8f8f2; /* main foreground / body text */
+  --monokai-comment:   #75715e; /* muted text (dates, org names) */
+  --monokai-pink:      #f92672; /* name / primary accent */
+  --monokai-green:     #a6e22e; /* section titles */
+  --monokai-blue:      #66d9ef; /* links / secondary accent */
+  --monokai-orange:    #fd971f; /* role titles */
+  --monokai-purple:    #ae81ff; /* skill labels */
+  --monokai-yellow:    #e6db74; /* highlighted values */
+
+  --font-mono: "Cascadia Code", "Fira Code", Consolas, "Courier New", monospace;
+
+  --page-width: 210mm;
+  --page-height: 297mm;
+  --page-padding: 8mm;
+}
+
+/* --- Light Monokai (used for the PDF export / print, easier on ink/eyes) ---
+   Same variable names, lighter/darker-adjusted values so contrast stays
+   readable on a white page. Applied via the ".theme-light-monokai" class
+   (see MODULES) and mirrored in the print media query at the bottom. */
+.theme-light-monokai {
+  --monokai-bg:        #fafafa;
+  --monokai-bg-alt:    #f0f0ee;
+  --monokai-fg:        #3b3a32;
+  --monokai-comment:   #8f8f7f;
+  --monokai-pink:      #c4116a;
+  --monokai-green:     #4b7a0d;
+  --monokai-blue:      #0f7c99;
+  --monokai-orange:    #b5590a;
+  --monokai-purple:    #6b3fa0;
+  --monokai-yellow:    #8a7f1f;
+}
+
+/* ============================================================================
+   BASE
+   Element-level resets and defaults. No classes here.
+   ============================================================================ */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #1e1f1c;
+  color: var(--monokai-fg);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+dl,
+dd {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ============================================================================
+   LAYOUT
+   Page-level structural rules. Prefixed "l-".
+   ============================================================================ */
+.l-page {
+  width: 100%;
+  max-width: var(--page-width);
+  min-height: var(--page-height);
+  margin: 24px auto;
+  padding: var(--page-padding);
+  background: var(--monokai-bg);
+  box-shadow: 0 0 0 1px #000, 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* --- responsive breakpoints live at the end of the stylesheet, see the
+   RESPONSIVE section below MODULES -- they need to load after the module
+   rules they override, or a same-specificity module rule loaded later in
+   the file would win regardless of which media query matches. --- */
+
+/* ============================================================================
+   MODULES
+   Reusable, self-contained components. Prefixed by component name.
+   ============================================================================ */
+
+/* --- toolbar / export button ------------------------------------------- */
+.toolbar {
+  width: 100%;
+  max-width: var(--page-width);
+  margin: 24px auto 0;
+  padding: 0 var(--page-padding);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid var(--monokai-green);
+  border-radius: 3px;
+  padding: 8px 18px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--monokai-green);
+}
+
+.btn:hover {
+  background: var(--monokai-green);
+  color: var(--monokai-bg);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--monokai-blue);
+  outline-offset: 2px;
+}
+
+/* --- cv header ----------------------------------------------------------- */
+.cv-header {
+  border-bottom: 1px solid var(--monokai-comment);
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+}
+
+.cv-header__name {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--monokai-pink);
+}
+
+.cv-header__title {
+  margin-top: 0px;
+  font-size: 13.5px;
+  color: var(--monokai-blue);
+  font-weight: 700;
+}
+
+.cv-header__contact {
+  margin-top: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px 14px;
+}
+
+.cv-header__contact-item {
+  font-size: 11.5px;
+  color: var(--monokai-comment);
+}
+
+.cv-header__contact-item::before {
+  content: "// ";
+  color: var(--monokai-comment);
+}
+
+/* --- cv section ------------------------------------------------------- */
+.cv-section {
+  margin-bottom: 12px;
+}
+
+.cv-section__title {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: var(--monokai-green);
+  margin-bottom: 0px;
+}
+
+.cv-section__title::before {
+  content: "# ";
+}
+
+.cv-section__text {
+  font-size: 12px;
+  color: var(--monokai-fg);
+}
+
+/* --- skills definition list --------------------------------------------- */
+.skill-list__row {
+  display: flex;
+  gap: 10px;
+  padding: 2px 0;
+}
+
+.skill-list__label {
+  flex: 0 0 130px;
+  font-weight: 700;
+  color: var(--monokai-purple);
+  font-size: 11.5px;
+}
+
+.skill-list__value {
+  flex: 1;
+  font-size: 11.5px;
+  color: var(--monokai-yellow);
+}
+
+/* --- experience / education entry --------------------------------------- */
+.entry {
+  margin-bottom: 9px;
+}
+
+.entry:last-child {
+  margin-bottom: 0;
+}
+
+.entry__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.entry__role {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--monokai-orange);
+}
+
+.entry__dates {
+  font-size: 11px;
+  color: var(--monokai-comment);
+  white-space: nowrap;
+}
+
+.entry__org {
+  font-size: 11.5px;
+  color: var(--monokai-blue);
+  margin: 1px 0 0px;
+}
+
+.entry__list {
+  padding-left: 16px;
+  list-style: disc;
+}
+
+.entry__item {
+  font-size: 11.5px;
+  color: var(--monokai-fg);
+  margin-bottom: 2px;
+}
+
+/* --- plain list (certifications, etc.) --------------------------------- */
+.plain-list {
+  padding-left: 16px;
+  list-style: disc;
+}
+
+.plain-list__item {
+  font-size: 11.5px;
+  color: var(--monokai-fg);
+  margin-bottom: 2px;
+}
+
+/* ============================================================================
+   RESPONSIVE
+   Breakpoints for small devices. Placed after MODULES on purpose: these
+   rules share selectors (e.g. .skill-list__label) with the module rules
+   above, and CSS breaks same-specificity ties by source order -- if this
+   block came before MODULES, the unconditional module rule would always
+   win, regardless of viewport width, even when the media query matches.
+   ============================================================================ */
+@media (max-width: 700px) {
+  :root {
+    --page-padding: 6mm;
+  }
+
+  html,
+  body {
+    font-size: 11.5px;
+  }
+
+  .l-page {
+    margin: 12px auto;
+  }
+
+  .toolbar {
+    margin: 12px auto 0;
+  }
+}
+
+@media (max-width: 420px) {
+  html,
+  body {
+    font-size: 10.5px;
+  }
+
+  .cv-header__name {
+    font-size: 19px;
+  }
+
+  .skill-list__row {
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .skill-list__label {
+    flex: none;
+  }
+}
+
+/* ============================================================================
+   STATE
+   Transient, JS-toggled states. Prefixed "is-".
+   ============================================================================ */
+.is-exporting {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.is-hidden {
+  display: none;
+}
+
+/* Forces true, fixed A4 dimensions for the detached export clone that
+   exportCvToPdf() creates just before capture (see script.js). No special
+   positioning is needed: appended after all existing page content, it
+   naturally lands below the fold in normal document flow, so it's never
+   actually seen -- but it IS fully rendered in the DOM, which is what
+   html2canvas needs in order to capture it correctly. */
+.is-export-copy {
+  width: 210mm !important;
+  max-width: 210mm !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ============================================================================
+   THEME: PRINT / PDF EXPORT OVERRIDES
+   Applied only when printing or when html2pdf renders the page.
+   ============================================================================ */
+@media print {
+  .toolbar {
+    display: none;
+  }
+
+  /* Same overrides as .theme-light-monokai (kept in sync manually) so a
+     direct browser print (Ctrl/Cmd+P) also prints light, ink-friendly. */
+  :root {
+    --monokai-bg:        #fafafa;
+    --monokai-bg-alt:    #f0f0ee;
+    --monokai-fg:        #3b3a32;
+    --monokai-comment:   #8f8f7f;
+    --monokai-pink:      #c4116a;
+    --monokai-green:     #4b7a0d;
+    --monokai-blue:      #0f7c99;
+    --monokai-orange:    #b5590a;
+    --monokai-purple:    #6b3fa0;
+    --monokai-yellow:    #8a7f1f;
+  }
+
+  html,
+  body {
+    background: var(--monokai-bg);
+  }
+
+  .l-page {
+    margin: 0;
+    box-shadow: none;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
