@@ -340,6 +340,29 @@ ul {
   max-width: 210mm !important;
   margin: 0 !important;
   box-shadow: none !important;
+  --page-padding: 8mm; /* re-lock desktop padding (matches :root above), in case a narrow viewport's media query changed the root value */
+}
+
+/* The RESPONSIVE section's @media queries key off the actual browser
+   viewport width -- which on a phone stays narrow even though
+   .is-export-copy forces the CLONE itself to 210mm. Without these
+   overrides, a phone export would silently inherit the mobile layout
+   (e.g. stacked skill rows), which can grow the page tall enough to push
+   later sections past the A4 boundary and get trimmed off.
+   These selectors are more specific than the plain ".skill-list__row" /
+   ".cv-header__name" rules inside the @media blocks, so they always win
+   here regardless of which breakpoint the real device matches. */
+.is-export-copy .cv-header__name {
+  font-size: 24px;
+}
+
+.is-export-copy .skill-list__row {
+  flex-direction: row;
+  gap: 10px;
+}
+
+.is-export-copy .skill-list__label {
+  flex: 0 0 130px;
 }
 
 /* ============================================================================
