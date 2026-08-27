@@ -1,19 +1,20 @@
 /* ============================================================================
-   THEME
-   VS Code "Monokai" palette, exposed as custom properties.
-   Change values here to re-theme the whole CV from one place.
+   THEME: Default Dark Blue + Matte Green Headings
+   Monochrome blue accent, with secondary (section) headings pulled out
+   into their own matte green so they stand apart from the rest of the UI.
+   Exposed as custom properties -- change values here to re-theme the CV.
    ============================================================================ */
 :root {
-  --monokai-bg:        #272822; /* editor background   */
-  --monokai-bg-alt:    #2f3129; /* slightly lighter bg, used for entry cards */
-  --monokai-fg:        #f8f8f2; /* main foreground / body text */
-  --monokai-comment:   #75715e; /* muted text (dates, org names) */
-  --monokai-pink:      #f92672; /* name / primary accent */
-  --monokai-green:     #a6e22e; /* section titles */
-  --monokai-blue:      #66d9ef; /* links / secondary accent */
-  --monokai-orange:    #fd971f; /* role titles */
-  --monokai-purple:    #ae81ff; /* skill labels */
-  --monokai-yellow:    #e6db74; /* highlighted values */
+  --monokai-bg:        #1c1e21;
+  --monokai-bg-alt:    #22252b;
+  --monokai-fg:        #d4d8dd;
+  --monokai-comment:   #767c87;
+  --monokai-pink:      #7c95ae;
+  --monokai-green:     #74916f; /* matte green — used by .cv-section__title (secondary headings) and the button */
+  --monokai-blue:      #6e8fae;
+  --monokai-orange:    #92a3b5;
+  --monokai-purple:    #7887a0;
+  --monokai-yellow:    #9fb0c4;
 
   --font-mono: "Cascadia Code", "Fira Code", Consolas, "Courier New", monospace;
 
@@ -22,26 +23,21 @@
   --page-padding: 8mm;
 }
 
-/* --- Light Monokai (used for the PDF export / print, easier on ink/eyes) ---
-   Same variable names, lighter/darker-adjusted values so contrast stays
-   readable on a white page. Applied via the ".theme-light-monokai" class
-   (see MODULES) and mirrored in the print media query at the bottom. */
 .theme-light-monokai {
-  --monokai-bg:        #fafafa;
-  --monokai-bg-alt:    #f0f0ee;
-  --monokai-fg:        #3b3a32;
-  --monokai-comment:   #8f8f7f;
-  --monokai-pink:      #c4116a;
-  --monokai-green:     #4b7a0d;
-  --monokai-blue:      #0f7c99;
-  --monokai-orange:    #b5590a;
-  --monokai-purple:    #6b3fa0;
-  --monokai-yellow:    #8a7f1f;
+  --monokai-bg:        #ffffff;
+  --monokai-bg-alt:    #f4f5f6;
+  --monokai-fg:        #2b2e33;
+  --monokai-comment:   #6b7178;
+  --monokai-pink:      #1f2933;
+  --monokai-green:     #3f5c42; /* matte green counterpart, darkened for contrast on white */
+  --monokai-blue:      #33586f;
+  --monokai-orange:    #3a3f47;
+  --monokai-purple:    #4a5560;
+  --monokai-yellow:    #454b52;
 }
 
 /* ============================================================================
    BASE
-   Element-level resets and defaults. No classes here.
    ============================================================================ */
 * {
   box-sizing: border-box;
@@ -51,7 +47,7 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background: #1e1f1c;
+  background: #16181b;
   color: var(--monokai-fg);
   font-family: var(--font-mono);
   font-size: 12.5px;
@@ -60,13 +56,7 @@ body {
   overflow-x: hidden;
 }
 
-h1,
-h2,
-h3,
-p,
-ul,
-dl,
-dd {
+h1, h2, h3, p, ul, dl, dd {
   margin: 0;
   padding: 0;
 }
@@ -77,7 +67,6 @@ ul {
 
 /* ============================================================================
    LAYOUT
-   Page-level structural rules. Prefixed "l-".
    ============================================================================ */
 .l-page {
   width: 100%;
@@ -89,17 +78,9 @@ ul {
   box-shadow: 0 0 0 1px #000, 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
-/* --- responsive breakpoints live at the end of the stylesheet, see the
-   RESPONSIVE section below MODULES -- they need to load after the module
-   rules they override, or a same-specificity module rule loaded later in
-   the file would win regardless of which media query matches. --- */
-
 /* ============================================================================
    MODULES
-   Reusable, self-contained components. Prefixed by component name.
    ============================================================================ */
-
-/* --- toolbar / export button ------------------------------------------- */
 .toolbar {
   width: 100%;
   max-width: var(--page-width);
@@ -131,7 +112,6 @@ ul {
   outline-offset: 2px;
 }
 
-/* --- cv header ----------------------------------------------------------- */
 .cv-header {
   border-bottom: 1px solid var(--monokai-comment);
   padding-bottom: 10px;
@@ -168,7 +148,6 @@ ul {
   color: var(--monokai-comment);
 }
 
-/* --- cv section ------------------------------------------------------- */
 .cv-section {
   margin-bottom: 12px;
 }
@@ -191,7 +170,6 @@ ul {
   color: var(--monokai-fg);
 }
 
-/* --- skills definition list --------------------------------------------- */
 .skill-list__row {
   display: flex;
   gap: 10px;
@@ -211,7 +189,6 @@ ul {
   color: var(--monokai-yellow);
 }
 
-/* --- experience / education entry --------------------------------------- */
 .entry {
   margin-bottom: 9px;
 }
@@ -257,7 +234,6 @@ ul {
   margin-bottom: 2px;
 }
 
-/* --- plain list (certifications, etc.) --------------------------------- */
 .plain-list {
   padding-left: 16px;
   list-style: disc;
@@ -271,19 +247,13 @@ ul {
 
 /* ============================================================================
    RESPONSIVE
-   Breakpoints for small devices. Placed after MODULES on purpose: these
-   rules share selectors (e.g. .skill-list__label) with the module rules
-   above, and CSS breaks same-specificity ties by source order -- if this
-   block came before MODULES, the unconditional module rule would always
-   win, regardless of viewport width, even when the media query matches.
    ============================================================================ */
 @media (max-width: 700px) {
   :root {
     --page-padding: 6mm;
   }
 
-  html,
-  body {
+  html, body {
     font-size: 11.5px;
   }
 
@@ -297,8 +267,7 @@ ul {
 }
 
 @media (max-width: 420px) {
-  html,
-  body {
+  html, body {
     font-size: 10.5px;
   }
 
@@ -318,7 +287,6 @@ ul {
 
 /* ============================================================================
    STATE
-   Transient, JS-toggled states. Prefixed "is-".
    ============================================================================ */
 .is-exporting {
   opacity: 0.6;
@@ -329,29 +297,14 @@ ul {
   display: none;
 }
 
-/* Forces true, fixed A4 dimensions for the detached export clone that
-   exportCvToPdf() creates just before capture (see script.js). No special
-   positioning is needed: appended after all existing page content, it
-   naturally lands below the fold in normal document flow, so it's never
-   actually seen -- but it IS fully rendered in the DOM, which is what
-   html2canvas needs in order to capture it correctly. */
 .is-export-copy {
   width: 210mm !important;
   max-width: 210mm !important;
   margin: 0 !important;
   box-shadow: none !important;
-  --page-padding: 8mm; /* re-lock desktop padding (matches :root above), in case a narrow viewport's media query changed the root value */
+  --page-padding: 8mm;
 }
 
-/* The RESPONSIVE section's @media queries key off the actual browser
-   viewport width -- which on a phone stays narrow even though
-   .is-export-copy forces the CLONE itself to 210mm. Without these
-   overrides, a phone export would silently inherit the mobile layout
-   (e.g. stacked skill rows), which can grow the page tall enough to push
-   later sections past the A4 boundary and get trimmed off.
-   These selectors are more specific than the plain ".skill-list__row" /
-   ".cv-header__name" rules inside the @media blocks, so they always win
-   here regardless of which breakpoint the real device matches. */
 .is-export-copy .cv-header__name {
   font-size: 24px;
 }
@@ -367,30 +320,26 @@ ul {
 
 /* ============================================================================
    THEME: PRINT / PDF EXPORT OVERRIDES
-   Applied only when printing or when html2pdf renders the page.
    ============================================================================ */
 @media print {
   .toolbar {
     display: none;
   }
 
-  /* Same overrides as .theme-light-monokai (kept in sync manually) so a
-     direct browser print (Ctrl/Cmd+P) also prints light, ink-friendly. */
   :root {
-    --monokai-bg:        #fafafa;
-    --monokai-bg-alt:    #f0f0ee;
-    --monokai-fg:        #3b3a32;
-    --monokai-comment:   #8f8f7f;
-    --monokai-pink:      #c4116a;
-    --monokai-green:     #4b7a0d;
-    --monokai-blue:      #0f7c99;
-    --monokai-orange:    #b5590a;
-    --monokai-purple:    #6b3fa0;
-    --monokai-yellow:    #8a7f1f;
+    --monokai-bg:        #ffffff;
+    --monokai-bg-alt:    #f4f5f6;
+    --monokai-fg:        #2b2e33;
+    --monokai-comment:   #6b7178;
+    --monokai-pink:      #1f2933;
+    --monokai-green:     #3f5c42;
+    --monokai-blue:      #33586f;
+    --monokai-orange:    #3a3f47;
+    --monokai-purple:    #4a5560;
+    --monokai-yellow:    #454b52;
   }
 
-  html,
-  body {
+  html, body {
     background: var(--monokai-bg);
   }
 
