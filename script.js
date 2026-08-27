@@ -11,8 +11,51 @@ function renderCv() {
 
   container.appendChild(content);
 }
+
 /* ============================================================================
-   2. EXPORT
+   2. THEME TOGGLE
+   Flips the existing ".theme-light-monokai" class (already defined in
+   style.css) on the LIVE #cv-container so the page can be viewed in light
+   or dark mode. This is completely separate from the PDF export flow below:
+   exportCvToPdf() always forces ".theme-light-monokai" onto its own detached
+   copy regardless of whatever this toggle is currently set to, so the PDF
+   always stays white/light no matter which mode the screen is in.
+   ============================================================================ */
+function initThemeToggle() {
+  var toggleBtn = document.getElementById("theme-toggle-btn");
+  var container = document.getElementById("cv-container");
+  var icon = toggleBtn.querySelector(".btn--toggle__icon");
+  var STORAGE_KEY = "cv-theme-preference";
+
+  function applyTheme(isLight) {
+    container.classList.toggle("theme-light-monokai", isLight);
+    toggleBtn.setAttribute("aria-pressed", String(isLight));
+    // moon = "switch to light" (currently dark), sun = "switch to dark" (currently light)
+    icon.textContent = isLight ? "\u2600\uFE0F" : "\uD83C\uDF19";
+  }
+
+  var saved = null;
+  try {
+    saved = localStorage.getItem(STORAGE_KEY);
+  } catch (e) {
+    // localStorage unavailable (privacy mode, etc.) -- just fall back to dark default
+    saved = null;
+  }
+  applyTheme(saved === "light");
+
+  toggleBtn.addEventListener("click", function () {
+    var isLight = !container.classList.contains("theme-light-monokai");
+    applyTheme(isLight);
+    try {
+      localStorage.setItem(STORAGE_KEY, isLight ? "light" : "dark");
+    } catch (e) {
+      // ignore persistence errors, toggle still works for this session
+    }
+  });
+}
+
+/* ============================================================================
+   3. EXPORT
    Core html2pdf.js logic only. Takes the already-rendered #cv-container
    and saves it as a single A4-page PDF.
    ============================================================================ */
@@ -21,7 +64,9 @@ function exportCvToPdf() {
   var liveContainer = document.getElementById("cv-container");
 
   // Export from a separate, detached copy of the CV rather than the live
-  // page. The copy gets a fixed A4 width and the light-monokai theme.
+  // page. The copy gets a fixed A4 width and the light theme -- forced on
+  // here explicitly, so the PDF is always white/light even if the live
+  // page is currently toggled into dark mode (see THEME TOGGLE above).
   // Appending it after all existing content lets it fall in normal
   // document flow (below the fold, so effectively invisible without
   // scrolling) rather than using an off-screen absolute offset, which
@@ -74,10 +119,11 @@ function exportCvToPdf() {
     });
 }
 /* ============================================================================
-   3. INIT
+   4. INIT
    ============================================================================ */
 document.addEventListener("DOMContentLoaded", function () {
   renderCv();
+  initThemeToggle();
 
   var exportBtn = document.getElementById("export-btn");
   exportBtn.addEventListener("click", exportCvToPdf);

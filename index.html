@@ -11,7 +11,11 @@
 <body>
   <!-- Toolbar: not part of the CV itself, excluded from the PDF export target -->
   <div class="toolbar">
-    <button type="button" id="export-btn" class="btn btn--export">Download PDF</button>
+    <button type="button" id="theme-toggle-btn" class="btn btn--toggle" aria-pressed="false" aria-label="Toggle light and dark theme">
+      <span class="btn--toggle__icon" aria-hidden="true">🌙</span>
+    </button>
+    
+    <button type="button" id="export-btn" class="btn btn--export">Download CV</button>
   </div>
   <!--    Visible + exportable CV lives here.
     JS clones the markup from #cv-template into this container on page load,

@@ -23,6 +23,11 @@
   --page-padding: 8mm;
 }
 
+/* --- Light theme. Used for: (1) the PDF export copy, which always gets
+   this class added by script.js regardless of the on-screen toggle state,
+   so the PDF stays white/light no matter what; and (2) the on-screen
+   toggle, which simply adds/removes this same class on the live
+   #cv-container -- see the THEME TOGGLE script in script.js. --- */
 .theme-light-monokai {
   --monokai-bg:        #ffffff;
   --monokai-bg-alt:    #f4f5f6;
@@ -88,6 +93,7 @@ ul {
   padding: 0 var(--page-padding);
   display: flex;
   justify-content: flex-end;
+  gap: 10px; /* separates the new theme toggle from the download button */
 }
 
 .btn {
@@ -110,6 +116,20 @@ ul {
 .btn:focus-visible {
   outline: 2px solid var(--monokai-blue);
   outline-offset: 2px;
+}
+
+/* --- theme toggle button (screen-only; not part of the CV / PDF) ------- */
+.btn--toggle {
+  padding: 8px 12px;
+  border-color: var(--monokai-comment);
+  color: var(--monokai-fg);
+  font-size: 15px;
+  line-height: 1;
+}
+
+.btn--toggle:hover {
+  background: var(--monokai-comment);
+  color: var(--monokai-bg);
 }
 
 .cv-header {
