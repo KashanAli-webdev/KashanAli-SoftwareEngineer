@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kashan Ali - CV</title>
+  <meta name="description" content="ATS-friendly one-page CV for Kashan Ali, Software Engineer / ASP.NET Core Developer">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Toolbar: not part of the CV itself, excluded from the PDF export -->
+  <div class="toolbar">
+    <button type="button" id="export-btn" class="btn btn--export">Download CV (PDF)</button>
+  </div>
+  <!--    Visible + exportable CV lives here.
+    JS clones the markup from #cv-template into this container on page load,
+    then the PDF exporter reads this same container to build the PDF.  -->
+  <div id="cv-container" class="l-page"></div>
+  <!--    ============================================================
+    CV CONTENT TEMPLATE
+    Edit everything inside this <template> to update your CV.
+    Nothing here renders until JS clones it into #cv-container.
+    ============================================================  -->
+  <template id="cv-template">
+    <header class="cv-header">
+      <h1 class="cv-header__name">Kashan Ali</h1>
+      <p class="cv-header__title">Software Engineer | ASP.NET Core Developer</p>
+      <ul class="cv-header__contact">
+        <li class="cv-header__contact-item"><span class="cv-header__contact-label">Email:</span> kashanali.webdeveloper@gmail.com</li>
+        <li class="cv-header__contact-item"><span class="cv-header__contact-label">Phone:</span> +92 312 3903291</li>
+        <li class="cv-header__contact-item"><span class="cv-header__contact-label">LinkedIn:</span> linkedin.com/in/kashan-ali-web-developer</li>
+        <li class="cv-header__contact-item"><span class="cv-header__contact-label">GitHub:</span> github.com/KashanAli-webdev</li>
+        <li class="cv-header__contact-item"><span class="cv-header__contact-label">Location:</span> Garden West, Karachi</li>
+        <li class="cv-header__contact-item"><span class="cv-header__contact-label">Experience:</span> 2 Years | Enterprise &amp; Banking Software</li>
+      </ul>
+    </header>
+
+    <main class="cv-body">
+      <section class="cv-section" id="summary" aria-labelledby="summary-title">
+        <h2 class="cv-section__title" id="summary-title">Professional Summary</h2>
+        <p class="cv-section__text">
+          Software Engineer with 2 years of experience delivering enterprise and banking
+          solutions using C#, ASP.NET Core MVC/Web API, SQL Server, and RESTful APIs.
+          Skilled in secure application development, business workflow automation, API
+          integration, performance optimisation, and production deployments.
+        </p>
+      </section>
+
+      <section class="cv-section" id="education" aria-labelledby="education-title">
+        <h2 class="cv-section__title" id="education-title">Education</h2>
+        <article class="entry">
+          <div class="entry__head">
+            <h3 class="entry__role">Bachelor of Science in Information Technology</h3>
+            <span class="entry__dates">Jan 2019 - Feb 2023</span>
+          </div>
+          <p class="entry__org">University of Sindh &mdash; Jamshoro, Pakistan</p>
+        </article>
+      </section>
+
+      <section class="cv-section" id="experience" aria-labelledby="experience-title">
+        <h2 class="cv-section__title" id="experience-title">Work Experience</h2>
+        <article class="entry">
+          <h3 class="entry__role">Software Engineer</h3>
+          <p class="entry__org">IT Concepts, Karachi, Pakistan | May 2026 - Present</p>
+          <ul class="entry__list">
+            <li class="entry__item">
+              <strong>Delivered</strong> feature enhancements and production support for enterprise
+              applications serving U.S. electricity and gas providers.
+            </li>
+
+            <li class="entry__item">
+              <strong>Architected</strong> a Project Management System using ASP.NET Core 7 to support
+              project, task, and organizational workflow management.
+            </li>
+
+            <li class="entry__item">
+              <strong>Coordinated</strong> with the development team using Azure DevOps for source control,
+              work item tracking, and deployments through CI/CD pipelines.
+            </li>
+          </ul>
+        </article>
+
+        <article class="entry">
+          <h3 class="entry__role">.NET Developer (Management Trainee Officer - MTO)</h3>
+          <p class="entry__org">Digital Team Global Private Limited, Karachi, Pakistan | Sep 2024 - Apr 2026</p>
+          <ul class="entry__list">
+            <li class="entry__item">
+              <strong>Enhance</strong> legacy ASP.NET MVC 5 applications, improving performance and maintainability.
+            </li>
+
+            <li class="entry__item">
+              <strong>Developed</strong> ASP.NET Core Web APIs for authentication, business logic, and CRUD operations.
+            </li>
+
+            <li class="entry__item">
+              <strong>Maintained</strong> a banking application, ensuring reliability, security, and compliance.
+            </li>
+
+            <li class="entry__item">
+              <strong>Built</strong> responsive front-end interfaces using Bootstrap for consistent UI/UX.
+            </li>
+
+            <li class="entry__item">
+              <strong>Deployed</strong> .NET applications to UAT and Production on IIS, ensuring smooth releases.
+            </li>
+
+            <li class="entry__item">
+              <strong>Mentored</strong> and onboarded .NET interns, providing training and code reviews.
+            </li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="cv-section" id="skills" aria-labelledby="skills-title">
+        <h2 class="cv-section__title" id="skills-title">Core Technical Competencies</h2>
+        <dl class="skill-list">
+          <div class="skill-list__row">
+            <dt class="skill-list__label">Frontend</dt>
+            <dd class="skill-list__value">
+              Angular, TypeScript, JavaScript, JQuery, HTML, CSS, Bootstrap, Tailwind CSS
+            </dd>
+          </div>
+
+          <div class="skill-list__row">
+            <dt class="skill-list__label">Backend</dt>
+            <dd class="skill-list__value">
+              C#, ASP.NET Core MVC, ASP.NET Core Web API, RESTful APIs, OOP Principles
+            </dd>
+          </div>
+
+          <div class="skill-list__row">
+            <dt class="skill-list__label">Database</dt>
+            <dd class="skill-list__value">
+              SQL Server, Oracle, MySQL / Relational Databases
+            </dd>
+          </div>
+
+          <div class="skill-list__row">
+            <dt class="skill-list__label">Version Control</dt>
+            <dd class="skill-list__value">
+              GitHub, Git, GitHub Desktop, Azure Repos
+            </dd>
+          </div>
+
+          <div class="skill-list__row">
+            <dt class="skill-list__label">Tools</dt>
+            <dd class="skill-list__value">
+              Visual Studio Community, Visual Studio Code, Postman, ZAP, Jmeter, Lighthouse
+            </dd>
+          </div>
+
+          <div class="skill-list__row">
+            <dt class="skill-list__label">Project Management</dt>
+            <dd class="skill-list__value">
+              Trello, ClickUp, Medtractions
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="cv-section" id="certifications" aria-labelledby="certifications-title">
+        <h2 class="cv-section__title" id="certifications-title">Certifications</h2>
+        <ul class="plain-list">
+          <li class="plain-list__item">Microsoft Certified: Foundational C#</li>
+          <li class="plain-list__item">Microsoft Certified: Introduction to Programming Using HTML and CSS</li>
+        </ul>
+      </section>
+
+      <section class="cv-section" id="projects" aria-labelledby="projects-title">
+        <h2 class="cv-section__title" id="projects-title">Key Projects</h2>
+
+        <article class="entry">
+          <h3 class="entry__role">Bsmart: Digital Corporate Banking System</h3>
+          <p class="entry__org">Client: Bank Makramah Limited (BML) | Live Production Deployment</p>
+          <ul class="entry__list">
+            <li class="entry__item">
+              <strong>Engineered</strong> a full-scale digital banking platform that systematized corporate
+              employee account onboarding end-to-end, eliminating physical branch dependency
+              and accelerating client acquisition timelines.
+            </li>
+
+            <li class="entry__item">
+              <strong>Executed</strong> a multi-channel transaction engine supporting Fund Transfers,
+              Inter-Bank Transfers, Raast, RTGS, Utility Payments, Government Tax Payments,
+              and Pay Orders with 24/7 real-time transaction monitoring.
+            </li>
+
+            <li class="entry__item">
+              <strong>Enforced</strong> a dynamic fee management module for the academic sector, alongside
+              customizable reporting tools that empowered administrators with actionable,
+              data-driven insights.
+            </li>
+          </ul>
+          <p class="entry__stack"><span class="entry__stack-label">Stack:</span> <span class="entry__stack-value">.NET MVC, MS SQL Server, Hangfire (Background Jobs), JavaScript, jQuery, Bootstrap, HTML/CSS, Git</span></p>
+        </article>
+
+        <article class="entry">
+          <h3 class="entry__role">Echo: Complaint Management System</h3>
+          <p class="entry__org">Client: Sindh Microfinance Bank</p>
+          <ul class="entry__list">
+            <li class="entry__item">
+              <strong>Developed</strong> core business workflows for complaint routing, role-based assignments,
+              reporting, and document exports (Excel, PDF, Word).
+            </li>
+
+            <li class="entry__item">
+              <strong>Deployed</strong> and maintained the application on IIS, supporting complaint management
+              across branches and headquarters.
+            </li>
+          </ul>
+          <p class="entry__stack"><span class="entry__stack-label">Stack:</span> <span class="entry__stack-value">ASP.NET Core MVC, SQL Server, IIS</span></p>
+        </article>
+
+        <article class="entry">
+          <h3 class="entry__role">Engage: Internal Employee Collaboration Platform</h3>
+          <p class="entry__org">Client: Faysal Bank</p>
+          <ul class="entry__list">
+            <li class="entry__item">
+              <strong>Enhanced</strong> a secure employee collaboration platform by implementing security
+              features, integrating live PSX, weather, and news APIs, and optimizing API
+              response time from 1.8s to 0.5s.
+            </li>
+
+            <li class="entry__item">
+              <strong>Redesigned</strong> the application with a modern, fully responsive UI/UX to
+              improve usability across devices.
+            </li>
+          </ul>
+          <p class="entry__stack"><span class="entry__stack-label">Stack:</span> <span class="entry__stack-value">ASP.NET Core MVC, SQL Server, REST APIs, jQuery, Bootstrap</span></p>
+        </article>
+      </section>
+
+    </main>
+  </template>
+
+  <!-- pdfmake: the only third-party library used, loaded from CDN.
+       Builds a real text-based PDF in the browser. -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.3.3/pdfmake.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

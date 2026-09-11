@@ -1,0 +1,387 @@
+/* ============================================================================
+   THEME: Clean corporate resume style (matches Asif Ali CV reference)
+   Light, white-page resume look: navy/black name, blue section accents,
+   thin blue rules under the header and each section title, sans-serif
+   body copy. Exposed as custom properties -- change values here to re-theme.
+   (script.js reads these same colours when building the PDF file.)
+   ============================================================================ */
+:root {
+  --c-bg:        #ffffff;
+  --c-bg-alt:    #f5f7fa;
+  --c-text:      #262b30;
+  --c-muted:     #4b5560;
+  --c-name:      #17212b;
+  --c-blue:      #1c5d99;   /* section titles, rules, contact labels */
+  --c-blue-2:    #2e75b6;   /* job title / role line, links */
+  --c-bullet:    #2e75b6;
+
+  --font-body: "Calibri", "Carlito", "Segoe UI", Arial, Helvetica, sans-serif;
+
+  --page-width: 210mm;
+  --page-height: 297mm;
+  --page-padding: 12mm 16mm;
+}
+
+/* ============================================================================
+   BASE
+   ============================================================================ */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: #e7eaed;
+  color: var(--c-text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.42;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, p, ul, dl, dd {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ============================================================================
+   LAYOUT
+   ============================================================================ */
+.l-page {
+  width: 100%;
+  max-width: var(--page-width);
+  min-height: var(--page-height);
+  margin: 24px auto;
+  padding: var(--page-padding);
+  background: var(--c-bg);
+  box-shadow: 0 0 0 1px #d7dbe0, 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ============================================================================
+   MODULES
+   ============================================================================ */
+.toolbar {
+  width: 100%;
+  max-width: var(--page-width);
+  margin: 24px auto 0;
+  padding: 0 16mm;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.btn {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 700;
+  border: 1px solid var(--c-blue);
+  border-radius: 3px;
+  padding: 8px 18px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--c-blue);
+}
+
+.btn:hover {
+  background: var(--c-blue);
+  color: #ffffff;
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--c-blue-2);
+  outline-offset: 2px;
+}
+
+/* --- header ------------------------------------------------------------ */
+.cv-header {
+  margin-bottom: 14px;
+}
+
+.cv-header__name {
+  font-size: 27px;
+  font-weight: 700;
+  color: var(--c-name);
+  letter-spacing: 0.2px;
+}
+
+.cv-header__title {
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  color: var(--c-blue-2);
+}
+
+.cv-header__contact {
+  margin-top: 12px;
+  padding: 8px 0;
+  border-top: 2px solid var(--c-blue);
+  border-bottom: 2px solid var(--c-blue);
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 8px;
+  row-gap: 2px;
+}
+
+.cv-header__contact-item {
+  font-size: 11.5px;
+  color: var(--c-text);
+}
+
+.cv-header__contact-item:not(:last-child)::after {
+  content: " | ";
+  color: var(--c-muted);
+  padding-left: 8px;
+}
+
+.cv-header__contact-label {
+  font-weight: 700;
+  color: var(--c-name);
+}
+
+/* --- sections ------------------------------------------------------------ */
+.cv-section {
+  margin-bottom: 10px;
+}
+
+.cv-section__title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-blue);
+  padding-bottom: 3px;
+  margin-bottom: 8px;
+  border-bottom: 2px solid var(--c-blue);
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+.cv-section__text {
+  font-size: 12px;
+  color: var(--c-text);
+}
+
+/* --- skills / core technical competencies -------------------------------- */
+.skill-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+  row-gap: 3px;
+}
+
+.skill-list__row {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  padding: 1px 0;
+}
+
+.skill-list__row::before {
+  content: "\2022";
+  color: var(--c-bullet);
+  font-weight: 700;
+  flex: none;
+}
+
+.skill-list__label {
+  font-weight: 700;
+  color: var(--c-blue-2);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+
+.skill-list__label::after {
+  content: ":";
+}
+
+.skill-list__value {
+  font-size: 11.5px;
+  color: var(--c-text);
+}
+
+/* --- experience / education / projects entries --------------------------- */
+.entry {
+  margin-bottom: 8px;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.entry:last-child {
+  margin-bottom: 0;
+}
+
+.entry__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.entry__role {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--c-name);
+}
+
+.entry__dates {
+  font-size: 11px;
+  color: var(--c-muted);
+  white-space: nowrap;
+}
+
+.entry__org {
+  font-style: italic;
+  font-size: 11.5px;
+  color: var(--c-muted);
+  margin: 1px 0 5px;
+}
+
+.entry__list {
+  padding-left: 15px;
+  list-style: disc;
+}
+
+.entry__list li::marker {
+  color: var(--c-bullet);
+}
+
+.entry__item {
+  font-size: 11.5px;
+  color: var(--c-text);
+  margin-bottom: 3px;
+}
+
+.entry__item strong {
+  color: var(--c-name);
+}
+
+.entry__stack {
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+.entry__stack-label {
+  font-weight: 700;
+  color: var(--c-name);
+}
+
+.entry__stack-value {
+  font-style: italic;
+  color: var(--c-muted);
+}
+
+.plain-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 24px;
+  row-gap: 3px;
+  padding-left: 15px;
+  list-style: disc;
+}
+
+.plain-list__item {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--c-text);
+  margin-bottom: 2px;
+}
+
+.plain-list__item::marker {
+  color: var(--c-bullet);
+}
+
+/* ============================================================================
+   RESPONSIVE
+   ============================================================================ */
+@media (max-width: 700px) {
+  :root {
+    --page-padding: 8mm;
+  }
+
+  html, body {
+    font-size: 11.5px;
+  }
+
+  .l-page {
+    margin: 12px auto;
+  }
+
+  .toolbar {
+    margin: 12px auto 0;
+    padding: 0 8mm;
+  }
+
+  .skill-list,
+  .plain-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  html, body {
+    font-size: 10.5px;
+  }
+
+  .cv-header__name {
+    font-size: 21px;
+  }
+
+  .entry__head {
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+/* ============================================================================
+   STATE
+   ============================================================================ */
+.is-exporting {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.is-hidden {
+  display: none;
+}
+
+/* ============================================================================
+   THEME: PRINT OVERRIDES
+   ============================================================================ */
+@media print {
+  .toolbar {
+    display: none;
+  }
+
+  :root {
+    --c-bg:        #ffffff;
+    --c-bg-alt:    #f5f7fa;
+    --c-text:      #262b30;
+    --c-muted:     #4b5560;
+    --c-name:      #17212b;
+    --c-blue:      #1c5d99;
+    --c-blue-2:    #2e75b6;
+    --c-bullet:    #2e75b6;
+  }
+
+  html, body {
+    background: var(--c-bg);
+  }
+
+  .l-page {
+    margin: 0;
+    box-shadow: none;
+  }
+
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
